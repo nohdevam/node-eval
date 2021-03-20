@@ -1,0 +1,56 @@
+
+<!-- include head -->
+<%- include('../partials/_head') %>
+<!-- /include head -->
+
+<!-- include header -->
+<%- include('../partials/_header') %>
+<!-- /include header -->
+
+    <!-- Main Site -->
+        <div class="container">
+            
+            <h2 class="text-center">Users</h2>
+            
+            <!-- form handling -->
+            <form action="/" method="POST">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Content</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% users.forEach(user => { %>
+                            <tr>
+                                <td><strong><%= user._id %></strong></td>
+                                <td><%= user.title %></td>
+                                <td><%= user.firstName %></td>
+                                <td><%= user.lastName %></td>
+                                <td><%= user.email %></td>
+                                <td>
+                                    <a href="/update-user?id=<%= user._id%>" class="btn border-shadow update">
+                                        <span class="text-gradient"><i class="fas fa-pencil-alt"></i></span>
+                                    </a>
+                                    <a class="btn border-shadow delete" data-id=<%= user._id%> >
+                                        <span class="text-gradient"><i class="fas fa-times"></i></span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <% }); %>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+  
+
+
+
+<!-- include footer -->
+<%- include('../partials/_footer') %>
+<!-- /include footer -->

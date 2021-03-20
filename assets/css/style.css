@@ -1,0 +1,321 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow&family=PT+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
+
+:root {
+	--radius: .2em;
+	--dark: #13694c;
+	--label: rgb(250, 251, 252);
+	--border: #dee2e6;
+	--border-btn: #edf2f4;
+	--head-btn: #6debac;
+	--rec-btn: rgb(132, 233, 247);
+	--back-rec: rgb(248, 169, 104);
+	--dark-rec: rgb(224, 95, 8);
+}
+
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+a {
+	text-decoration: none;
+	font-family: 'PT Sans', sans-serif;
+}
+
+.container {
+	max-width: 1080px;
+	margin: auto;
+}
+
+.nav-brand {
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+.navbar {
+	background-color: var(--head-btn);
+}
+
+.d-flex {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.justify-between {
+	justify-content: space-between;
+}
+
+.text-center {
+	text-align: center;
+	margin: 1.5em;
+	font-family: 'Lato', sans-serif;
+}
+
+.border-shadow {
+	border: 1px solid var(--border-btn);
+	box-shadow: 1px 3px 10px #e9ecef;
+}
+
+.inline {
+	display: inline-block;
+}
+
+.label-text {
+	color: var(--label);
+	margin-top: .2em;
+}
+
+.text-gradient {
+	background: linear-gradient(to right, #8e2de2, #4a00e0);
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+#header nav {
+	background-color: var(--head-btn);
+	padding: 1em 0;
+	width: 100%;
+}
+
+#site-main {
+	margin-top: 6em;
+	font-family: 'Barlow', sans-serif;
+}
+
+#site-main .container .box-nav > a {
+	font-size: 1em;
+	padding: .5em 1em;
+}
+
+#site-main .container form {
+	margin: 2em 0;
+}
+
+table {
+	border-spacing: 0px;
+}
+
+.table td,
+.table th {
+	padding: .75em;
+	vertical-align: top;
+	text-align: center;
+	border-top: 1px solid var(--border);
+	text-transform: capitalize;
+}
+
+.table td > a.btn {
+	padding: .3em 1em;
+	font-size: 1.1em;
+	margin: 0 .2em;
+}
+
+.table tr:hover {
+	background-color: var(--head-btn);
+}
+
+.table tr:hover td > a {
+	box-shadow: none;
+}
+
+.table .thead-dark th {
+	color: #fff;
+	background-color: var(--dark);
+	border-color: var(--dark);
+}
+
+@media only screen and (max-width: 1080px) {
+	table,
+	thead,
+	tbody,
+	th,
+	td,
+	tr {
+		display: block;
+	}
+
+	thead tr {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+
+	tr {
+		border: 1px solid var(--border);
+	}
+
+	td {
+		border: none;
+		position: relative;
+	}
+}
+
+/*  add user & update user template */
+
+.new_user {
+	max-width: 640px;
+	margin: auto;
+	padding: .3em 2em;
+	border: 1px solid var(--dark);
+	border-radius: var(--radius);
+}
+
+#login,
+#register {
+	margin: 0 20em;
+	padding: 3em 0;
+	background-color: var(--dark);
+	border-radius: 1em;
+}
+
+#update_user .form-group,
+#login .form-group,
+#register .form-group,
+#create_recipe .form-group {
+	margin: 0 0;
+}
+
+#update_user .form-group input[type="text"],
+#login .form-group input[type="text"],
+#register .form-group input[type="text"],
+#register .form-group input[type="password"],
+#login .form-group input[type="password"] {
+	width: 100%;
+	padding: .6em 1em;
+	border: 1px solid var(--border);
+	font-family: 'Barlow', sans-serif;
+	font-size: 1em;
+	border-radius: var(--radius);
+	background-color: rgb(194, 252, 223);
+}
+
+#register .form-group input[type="checkbox"],
+#login .form-group input[type="checkbox"] {
+	margin: .7em .5em;
+}
+
+#update_user .form-group .radio,
+#login .form-group .radio,
+#register .form-group .radio {
+	margin-top: 2.5em;
+	margin-left: 2em;
+}
+
+/* adding style to radio buttons */
+
+.radio-label {
+	color: var(--label);
+}
+
+.text-pws {
+	color: var(--label);
+}
+
+.radio input[type='radio'] {
+	position: absolute;
+	opacity: 0;
+}
+
+.radio input[type='radio'] + .radio-label:before {
+	content: "";
+	background: var(--border-btn);
+	border-radius: 100%;
+	border: 1px solid var(--border);
+	display: inline-block;
+	width: 1em;
+	height: 1em;
+	position: relative;
+	top: -0em;
+	margin-right: .5em;
+	vertical-align: top;
+	cursor: pointer;
+	text-align: center;
+	-webkit-transition: all 250ms ease;
+	transition: all 250ms ease;
+}
+
+.radio input[type='radio']:checked + .radio-label:before {
+	background-color: #16db93;
+	box-shadow: inset 0 0 0 4px #e9ecef;
+}
+
+.radio input[type='radio']:focus + .radio-label:before {
+	outline: none;
+	border-color: #16db93;
+}
+
+.radio input[type='radio']:disabled + .radio-label:before {
+	box-shadow: inset 0 0 0 4px #e9ecef;
+	border-color: #b4b4b4;
+	background: #b4b4b4;
+}
+
+#update_user .form-group .btn,
+#login .form-group .btn,
+#register .form-group .btn {
+	width: 100%;
+	padding: .9em 1em;
+	background-color: var(--head-btn);
+	color: var(--dark);
+	border: none;
+	font-family: 'PT Sans', sans-serif;
+	font-size: 1em;
+	cursor: pointer;
+	border-radius: var(--radius);
+	margin: 2em 0;
+}
+
+#update_user .form-group .btn:hover,
+#login .form-group .btn:hover,
+#register .form-group .btn:hover {
+	background-color: var(--dark);
+	color: var(--head-btn);
+}
+
+/* add style for Recipes */
+.new_recipe {
+	max-width: 640px;
+	margin: auto;
+	padding: .3em 2em;
+	border: 1px solid var(--back-rec);
+	border-radius: var(--radius);
+}
+
+#create_recipe {
+	margin: 0 20em;
+	padding: 3em 0;
+	background-color: var(--back-rec);
+	border-radius: 1em;
+}
+
+#create_recipe .form-group input[type="text"],
+#categories-select {
+	width: 100%;
+	padding: .6em 1em;
+	border: 1px solid var(--border);
+	font-family: 'Barlow', sans-serif;
+	font-size: 1em;
+	border-radius: var(--radius);
+	background-color: rgb(183, 245, 250);
+}
+
+#create_recipe .form-group .btn {
+	width: 100%;
+	padding: .9em 1em;
+	background-color: var(--rec-btn);
+	color: var(--dark-rec);
+	border: none;
+	font-family: 'PT Sans', sans-serif;
+	font-size: 1em;
+	cursor: pointer;
+	border-radius: var(--radius);
+	margin: 2em 0;
+}
+
+#create_recipe .form-group .btn:hover {
+	background-color: var(--dark-rec);
+	color: var(--rec-btn);
+}
