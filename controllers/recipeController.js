@@ -1,10 +1,25 @@
 const mongoose = require('mongoose');
+
 const catchErrors = (asyncFunction) => (...args) => asyncFunction(...args).catch(console.error);
 
-const { RecipeSchema, schema } = require('../models/recipeModel');
+const { RecipeSchema, recschema } = require('../models/recipeModel');
 
 // create and save new recipe
-exports.create = catchErrors(async (req, res) => {
+exports.create = async (req, res) => {
+	// console.log(request.body);
+	const recipe = new RecipeSchema({
+		title: req.body.title,
+		categories: req.body.categories,
+		image: req.file.filename,
+		description: req.body.description,
+		author: req.body.author
+	});
+	await recipe.save();
+	res.redirect('/');
+};
+
+{
+	/*exports.create = catchErrors(upload.single('image'), async (req, res) => {
 	const body = req.body;
 	const verif = schema.validate(body);
 	// validate request
@@ -12,28 +27,29 @@ exports.create = catchErrors(async (req, res) => {
 		res.status(400).send(verif.error.details[0].message);
 		return;
 	}
-	// new recipe
+	// new user
 	const recipe = new RecipeSchema(body);
-	// save user
+	// save recipe
 	await recipe.save(recipe);
-	res.redirect('/edit_recipes');
-});
+	res.redirect('/');
+});*/
+}
 
-// retrive and return all users or single user
+// retrive and return all recipes or single
 exports.find = catchErrors(async (req, res) => {
 	if (req.query.id) {
 		const id = req.query.id;
 
-		const data = await UserSchema.findById(id);
+		const data = await RecipeSchema.findById(id);
 
 		if (!data) {
-			res.status(404).send({ message: 'Not found user with id ' + id });
+			res.status(404).send({ message: 'Not found recipe with id ' + id });
 		} else {
 			res.send(data);
 		}
 	} else {
-		const user = await UserSchema.find();
-		res.send(user);
+		const recipe = await RecipeSchema.find();
+		res.send(recipe);
 	}
 });
 
@@ -43,8 +59,9 @@ exports.update = async (req, res) => {
 	const verifID = mongoose.Types.ObjectId.isValid(id);
 
 	let body = req.body;
+	let file = req.file;
 
-	const verif = schema.validate(body);
+	const verif = recschema.validate(body);
 	if (!verifID) {
 		res.status(400).send('id non conforme !');
 		return;
@@ -55,42 +72,41 @@ exports.update = async (req, res) => {
 		return;
 	}
 
-	let upData = await UserSchema.findById(id);
+	let upData = await RecipeSchema.findById(id);
 
 	if (!upData) {
 		res.status(404).send("aucun enregistrement trouvé pour l'id " + id);
 		return;
 	}
 
-	upData.email = body.email;
-	upData.password = body.password;
+	upData.image = file.filename;
 	upData.title = body.title;
-	upData.firstName = body.firstName;
-	upData.lastName = body.lastName;
+	upData.categories = body.categories;
+	upData.description = body.description;
+	upData.author = body.author;
+	upData.timeCreated = body.timeCreated;
 
 	await upData.save();
-	res.redirect('/get-users');
+	res.redirect('/');
 };
 
-// delete a user with specified user id
-exports.delete = async (req, res) => {
+// delete a recipe with specified recipe id
+exports.delete = (req, res) => {
 	const id = req.params.id;
-	try {
-		const verifID = mongoose.Types.ObjectId.isValid(id);
 
-		if (!verifID) {
-			res.status(400).send("l'id transmis n'est pas conforme");
-			return;
-		}
-
-		const delUser = await UserSchema.findByIdAndDelete(id);
-
-		if (delUser) {
-			res.status(200).send('Utilisateur supprimé avec succés');
-		} else {
-			res.status(404).send(`Id ${id} non trouvé`);
-		}
-	} catch (err) {
-		res.status(500).send("Erreur survenue lors de l'operation");
-	}
+	RecipeSchema.findByIdAndDelete(id)
+		.then((data) => {
+			if (!data) {
+				res.status(404).send({ message: `Cannot Delete with id ${id}. Maybe id is wrong` });
+			} else {
+				res.send({
+					message: 'Recipe was deleted successfully!'
+				});
+			}
+		})
+		.catch((err) => {
+			res.status(500).send({
+				message: 'Could not delete Recipe with id=' + id
+			});
+		});
 };

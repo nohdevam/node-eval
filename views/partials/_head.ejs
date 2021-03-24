@@ -11,7 +11,7 @@
 
     <script>
         function passHide() {
-        var x = document.getElementById("myInput");
+        var x = document.getElementById("myPws");
         if (x.type === "password") {
             x.type = "text";
         } else {
@@ -19,10 +19,24 @@
         }
     }
     </script> 
-    <script>
-        var date = Date.now();
+   <script>
+    function onDate() {
+        var date = new Date().toLocaleString();
         document.getElementById("today").innerHTML=date;
-    </script>
+        setTimeout(onDate, 1000);
+    }
+</script>
+<script>
+    function returnFileSize(number) {
+  if(number < 1024) {
+    return number + ' octets';
+  } else if(number >= 1024 && number < 1048576) {
+    return (number/1024).toFixed(1) + ' Ko';
+  } else if(number >= 1048576) {
+    return (number/1048576).toFixed(1) + ' Mo';
+  }
+}
+</script>
 
                 <!--Form with header-->
 

@@ -2,50 +2,34 @@
   <%- include('../partials/_head'); %>
 
 
-  <h2 class="text-center">Note your recipe</h2>
+  <h2 class="text-center">Redact your recipe</h2>
 
-        <form action="/recipes" method="POST" id="create_recipe">
+        <form action="/recipes" method="POST" id="create_recipe" enctype="multipart/form-data">
         <div class="new_recipe">
             <div class="form-group">
-                <label for="title" class="label-text">Title</label>
+                <label for="title" class="recipe-text">Title</label>
                 <input type="text" name="title" value="" placeholder="Best recipe of...">
             </div>
         
             <div class="form-group">
-            <label for="categories" class="label-text">Categories</label>
-            <select name="categories" id="categories-select" multiple size="5">
-                <option value="">--Please choose an option--</option>
-                <option value="entree">Entree</option>
-                <option value="meal">Meal</option>
-                <option value="dessert">Dessert</option>
-                <option value="">-------</option>
-                <option value="rice">Rice</option>
-                <option value="pate">Pate</option>
-                <option value="puree">Puree</option>
-                <option value="soup">Soup</option>
-                <option value="salad">Salad</option>
-                <option value="vegetable">Vegetable</option>
-                <option value="">-------------</option>
-                <option value="mousse">Mousse</option>
-            </select>
+            <label for="categories" class="recipe-text">Categories</label>
+            <input type="text" name="categories" value="" placeholder="">
             </div>
             <div class="form-group">
-                <label for="img-recipe">Choose your picture:</label>
-                <input type="file" id="img-recipe" name="avatar" accept="image/png, image/jpeg">
+                <label for="image" class="label-file">Choose your picture:</label>
+                <input type="file" name="image" class="input-file">
+                
             </div>
             <div class="form-group">
-                <label for="content" class="label-text">Content</label>
-                <textarea type="text" name="content" value="" placeholder="">
+                <label for="description" class="recipe-text">Preparing step</label>
+                <textarea type="text" name="description" value="" placeholder="">
                 </textarea>
             </div>
             <div class="form-group">
-                    <label for="author" class="label-text">Author</label>
-                    <input type="text" name="author" value="" placeholder="author">
+                    <label for="author" class="recipe-text">Author</label>
+                    <input type="text" name="author" value="" placeholder="">
             </div>
-            <div class="form-group">
-                <label for="published" class="label-text">Published on:</label>
-                <p id="today"></p>
-            </div>
+            
     
             <div class="form-group">
                 <button type="submit" class="btn update">Save</button>
@@ -54,6 +38,7 @@
         </div>
 
     </form>  
+    
 
     
          

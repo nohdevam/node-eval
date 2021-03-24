@@ -6,7 +6,6 @@ require('dotenv').config();
 const methodOverride = require('method-override');
 
 const connectDB = require('./server/database/connexion');
-const UserRouter = require('./server/routes/userRouter');
 const homeRouter = require('./server/routes/homeRouter');
 const app = express();
 
@@ -28,11 +27,11 @@ app.use('/img', express.static(path.resolve(__dirname, 'assets/img')));
 app.use('/js', express.static(path.resolve(__dirname, 'assets/js')));
 //parse request
 
-app.use((req, res, next) => {
+/*app.use((req, res, next) => {
 	const { method, path } = req;
 	console.log(`Méthode: ${method} | Path: ${path}`);
 	next(); // next permet de passé à la suite, de ne pas tourner en boucle
-});
+});*/
 
 //import routes
 app.use('/', homeRouter);

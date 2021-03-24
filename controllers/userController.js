@@ -81,18 +81,18 @@ exports.delete = async (req, res) => {
 		const verifID = mongoose.Types.ObjectId.isValid(id);
 
 		if (!verifID) {
-			res.status(400).send("l'id transmis n'est pas conforme");
+			res.status(400).send("l'id not match");
 			return;
 		}
 
 		const delUser = await UserSchema.findByIdAndDelete(id);
 
 		if (delUser) {
-			res.status(200).send('Utilisateur supprimé avec succés');
+			res.status(200).send('User deleted successfully !');
 		} else {
-			res.status(404).send(`Id ${id} non trouvé`);
+			res.status(404).send(`Id ${id} not found`);
 		}
 	} catch (err) {
-		res.status(500).send("Erreur survenue lors de l'operation");
+		res.status(500).send('Error while operating');
 	}
 };

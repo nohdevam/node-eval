@@ -1,13 +1,10 @@
 const crypto = require('crypto');
-
-let salt = 'f844b09ff50c';
+const salt = crypto.randomBytes(16).toString('hex');
 
 //import user model
 const { UserSchema, schema } = require('../models/userModel');
-const { LogSchema } = require('../models/logModel');
 
 // Handling user signup
-
 exports.register = (req, res) => {
 	const userData = {
 		//values should be those in the user model important
@@ -18,7 +15,7 @@ exports.register = (req, res) => {
 		lastName: req.body.lastName
 	};
 	UserSchema.findOne({
-		//ensure username is unique, i.e the username is not already in the database
+		//ensure email is unique, i.e the email is not already in the database
 		email: req.body.email
 	})
 		.then((user) => {

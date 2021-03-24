@@ -1,0 +1,56 @@
+
+<%- include('../partials/_head'); %>
+
+
+<%- include('../partials/_header'); %>
+
+
+
+<div class="container">
+
+            <% if(recipes.length<1){%>
+            <p class="recipe-text">No posts yet, create a new one</p>
+            <%  } %>
+
+            <h2 class="text-center">View Recipes</h2>
+
+            <% recipes.forEach(recipe=>{ %>
+            <div class="box-size">
+                    <div class="image-size">
+                        <img src="/uploads/images/<%= recipe.image %>"  alt="<%= recipe.rec_title %>" sizes="200 * 200 * 3">
+                    </div>
+                    <div>
+                        <div class="d-flex">
+                            <h4><b class="login-text"><%= recipe.rec_title %></b></h4>
+                            <!-- display more button -->
+            
+                                    <form action="/recipes/<%=recipe._id%>?_method=DELETE" method="POST" class="form-group" id="view_recipe"></form>
+                                    <a href="/update-recipe?id=<%= recipe._id %>" class="btn order-shadow update"
+                                        >
+                                        <span class="text-gradient"><i class="fas fa-pencil-alt"></i></span>
+                                    </a>
+                                    
+                                    <a class="btn border-shadow delete-recipe" data-recipe-id=<%= recipe._id%> >
+                                        <span class="text-gradient"><i class="fas fa-times"></i></span>
+                                    </a>
+                                    </form>
+  
+                                
+                        </div>
+                        <div>
+                            <div>
+                                <h5><span class="login-text"><b><%= recipe.author %></b></span></h5>
+                                    <p class="login-text"><%= recipe.timeCreated %> %></p>   
+                            </div>
+            
+                        </div>
+                        <p class="login-text"> <%= recipe.description %>
+                    </div>
+            </div>
+            <% }) %>
+
+            <%- include('../partials/_footer');  %> 
+
+        
+    
+</div>

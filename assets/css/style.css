@@ -4,13 +4,14 @@
 :root {
 	--radius: .2em;
 	--dark: #13694c;
-	--label: rgb(250, 251, 252);
+	--log-label: #242727;
+	--rec-label: #00b1ca;
 	--border: #dee2e6;
 	--border-btn: #edf2f4;
 	--head-btn: #6debac;
 	--rec-btn: rgb(132, 233, 247);
-	--back-rec: rgb(248, 169, 104);
-	--dark-rec: rgb(224, 95, 8);
+	--back-rec: rgb(54, 142, 177);
+	--dark-rec: rgb(27, 92, 145);
 }
 
 * {
@@ -62,9 +63,9 @@ a {
 	display: inline-block;
 }
 
-.label-text {
-	color: var(--label);
-	margin-top: .2em;
+.login-text {
+	color: var(--log-label);
+	font-weight: bold;
 }
 
 .text-gradient {
@@ -158,17 +159,9 @@ table {
 .new_user {
 	max-width: 640px;
 	margin: auto;
-	padding: .3em 2em;
-	border: 1px solid var(--dark);
+	padding: 1em 2em;
+	border: 2px solid var(--dark);
 	border-radius: var(--radius);
-}
-
-#login,
-#register {
-	margin: 0 20em;
-	padding: 3em 0;
-	background-color: var(--dark);
-	border-radius: 1em;
 }
 
 #update_user .form-group,
@@ -189,7 +182,7 @@ table {
 	font-family: 'Barlow', sans-serif;
 	font-size: 1em;
 	border-radius: var(--radius);
-	background-color: rgb(194, 252, 223);
+	margin-bottom: .6em;
 }
 
 #register .form-group input[type="checkbox"],
@@ -207,11 +200,11 @@ table {
 /* adding style to radio buttons */
 
 .radio-label {
-	color: var(--label);
+	color: var(--log-label);
 }
 
 .text-pws {
-	color: var(--label);
+	color: var(--log-label);
 }
 
 .radio input[type='radio'] {
@@ -265,7 +258,7 @@ table {
 	font-size: 1em;
 	cursor: pointer;
 	border-radius: var(--radius);
-	margin: 2em 0;
+	margin-top: 1em;
 }
 
 #update_user .form-group .btn:hover,
@@ -276,33 +269,35 @@ table {
 }
 
 /* add style for Recipes */
+
+.recipe-text {
+	color: var(--rec-label);
+	font-weight: bold;
+	margin-bottom: .6em;
+}
+
 .new_recipe {
 	max-width: 640px;
 	margin: auto;
-	padding: .3em 2em;
-	border: 1px solid var(--back-rec);
+	padding: 1em 2em;
+	border: 2px solid var(--back-rec);
 	border-radius: var(--radius);
-}
-
-#create_recipe {
-	margin: 0 20em;
-	padding: 3em 0;
-	background-color: var(--back-rec);
-	border-radius: 1em;
 }
 
 #create_recipe .form-group input[type="text"],
-#categories-select {
+#create_recipe .form-group input[type="file"],
+#create_recipe .form-group textarea {
 	width: 100%;
 	padding: .6em 1em;
-	border: 1px solid var(--border);
+	border: 1px solid var(--back-rec);
 	font-family: 'Barlow', sans-serif;
 	font-size: 1em;
 	border-radius: var(--radius);
-	background-color: rgb(183, 245, 250);
+	margin-bottom: 1em;
 }
 
-#create_recipe .form-group .btn {
+#create_recipe .form-group .btn,
+#view_recipe .form-group a {
 	width: 100%;
 	padding: .9em 1em;
 	background-color: var(--rec-btn);
@@ -315,7 +310,63 @@ table {
 	margin: 2em 0;
 }
 
-#create_recipe .form-group .btn:hover {
+#create_recipe .form-group .btn:hover,
+#view_recipe .form-group a:hover {
 	background-color: var(--dark-rec);
 	color: var(--rec-btn);
+}
+
+#create_recipe textarea {
+	width: 60%;
+	height: 10%;
+	border-radius: var(--radius);
+}
+
+#today {
+	color: var(--rec-label);
+}
+
+.label-file {
+	cursor: pointer;
+	color: #00b1ca;
+	font-weight: bold;
+}
+
+.label-file:hover {
+	color: #117088;
+}
+
+.card-img {
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position-x: center;
+}
+
+.recipe-text {
+	font-size: 20px;
+	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+	color: #00b1ca;
+}
+
+/* add style for view_recipe */
+#grid {
+	display: grid;
+	grid-template-columns: max-content max-content 1fr;
+	box-sizing: border-box;
+	width: 100%;
+	height: 100%;
+	padding: 1em;
+	background-color: #d1faf6;
+}
+
+.box-size {
+	max-width: fit-content;
+	margin: auto;
+	padding: 1em 2em;
+	border: 2px solid var(--back-rec);
+	border-radius: var(--radius);
+}
+
+.btn-box {
+	margin-top: 2em;
 }

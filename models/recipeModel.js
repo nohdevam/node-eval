@@ -1,26 +1,29 @@
 const mongoose = require('mongoose');
 const Joi = require('joi');
+const Schema = mongoose.Schema;
 
-const schemaRecipe = mongoose.Schema({
-	title: { type: String, required: true },
-	content: { type: String },
-	dt_publication: { type: Date },
-	author: { type: String, required: true },
+const recSchema = new Schema({
+	rec_title: { type: String, required: true },
 	categories: [ { type: String } ],
-	image: { type: String },
-	published: { type: Boolean }
+	image: { type: String, default: 'placeholder.jpg' },
+	description: [ { type: String } ],
+	author: { type: String, required: true },
+	timeCreated: {
+		type: Date,
+		default: () => Date.now()
+	}
 });
 
-const Recipe = mongoose.model('recipes', schemaRecipe);
+const RecipeSchema = mongoose.model('recipes', recSchema);
 
-const schema = Joi.object({
-	title: Joi.string().min(3).max(100).required(),
-	content: Joi.string().min(10).max(500).required(),
-	author: Joi.string().min(3).max(255).required(),
+const recschema = Joi.object({
+	rec_title: Joi.string().min(3).max(100).required(),
 	categories: Joi.array().items(Joi.string()),
 	image: Joi.string().required(),
-	published: Joi.boolean().required()
+	description: Joi.array().items(Joi.string()),
+	author: Joi.string().min(3).max(255).required(),
+	timeCreated: Joi.boolean().required()
 });
 
-module.exports.schema = schema;
-module.exports.Recipes = Recipe;
+module.exports.recschema = recschema;
+module.exports.RecipeSchema = RecipeSchema;
