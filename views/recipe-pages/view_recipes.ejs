@@ -17,17 +17,17 @@
             <% recipes.forEach(recipe=>{ %>
             <div class="box-size"> 
                         <img src="/uploads/images/<%= recipe.image %>"  alt="<%= recipe.rec_title %>" class="image-size">
-                    <div>
+                    
                         <div class="d-flex">
                             <h4><b class="rec-gradient"><%= recipe.rec_title %></b></h4>
                             <!-- display more button -->
             
-                                    <form method="POST" action="/recipes/<%=recipe._id%>?_method=DELETE" class="form-group" id="view_recipe"></form>
+                                    <form method="POST" action="/recipes/<%=recipe._id%>?_method=DELETE" class="form-group" id="view_recipe">
                                     <a href="/update-recipe?id=<%= recipe._id %>" class="btn order-shadow update">
                                         <span class="text-gradient"><i class="fas fa-pencil-alt"></i></span>
                                     </a>
                                     
-                                    <button class="btn border-shadow delete" id="delete_recipe">
+                                    <button class="btn border-shadow delete" id="delete_recipe" type="submit">
                                         <span class="text-gradient"><i class="fas fa-times"></i></span>
                                     </button>
                                     </form>
@@ -42,7 +42,7 @@
             
                         </div>
                         <p> <%= recipe.description %>
-                    </div>
+                    
             </div>
             <% }) %>
 
