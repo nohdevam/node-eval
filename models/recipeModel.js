@@ -10,7 +10,7 @@ const recSchema = new Schema({
 	author: { type: String, required: true },
 	timeCreated: {
 		type: Date,
-		default: () => Date.now()
+		default: Date.now
 	}
 });
 
@@ -22,7 +22,7 @@ const recschema = Joi.object({
 	image: Joi.string().required(),
 	description: Joi.array().items(Joi.string()),
 	author: Joi.string().min(3).max(255).required(),
-	timeCreated: Joi.boolean().required()
+	timeCreated: Joi.date().iso()
 });
 
 module.exports.recschema = recschema;

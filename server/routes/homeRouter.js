@@ -64,10 +64,6 @@ router.get('/update-user', (req, res) => {
 		});
 });
 
-router.get('/delete-user', (req, res) => {
-	res.render('/user-pages/delete_user');
-});
-
 // recipe routes
 router.get('/edit-recipe', (req, res) => {
 	res.render('recipe-pages/create_recipe');
@@ -95,17 +91,18 @@ router.get('/update-recipe', (req, res) => {
 		});
 });
 
+// API routes
 // home & log routes
-router.get('/');
-router.post('/users', logController.register);
-router.post('/login', logController.login);
+router.get('/'); // => Home
+router.post('/users', logController.register); // => enregistrement via formulaire d'inscription
+router.post('/login', logController.login); // => connexion grâce aux données précédemment enregistrées
 
 //users routes
-router.get('/users', userController.find);
-router.put('/users/:id', userController.update);
-router.delete('/users/:id', userController.delete);
+router.get('/users', userController.find); // => voir tous les utilisateurs
+router.put('/users/:id', userController.update); // => mettre à jour gràce à l'identifiant
+router.delete('/users/:id', userController.delete); // => supprimer gràce à l'identifiant
 
-// recipes route
+// recipes routes
 router.post('/recipes', upload.single('image'), async (req, res) => {
 	console.log(req.file);
 

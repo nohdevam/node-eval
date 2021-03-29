@@ -3,41 +3,32 @@ const catchErrors = (asyncFunction) => (...args) => asyncFunction(...args).catch
 
 const { UserSchema, schema } = require('../models/userModel');
 
-// create and save new user
-{
-	/*exports.create = catchErrors(async (req, res) => {
-	const body = req.body;
-	const verif = schema.validate(body);
-	// validate request
-	if (verif.error) {
-		res.status(400).send(verif.error.details[0].message);
-		return;
-	}
-	// new user
-	const user = new UserSchema(body);
-	// save user
-	await user.save(user);
-	res.redirect('/');
-});*/
-}
-
 // retrive and return all users or single user
-exports.find = catchErrors(async (req, res) => {
+exports.find = async (req, res) => {
 	if (req.query.id) {
 		const id = req.query.id;
 
-		const data = await UserSchema.findById(id);
-
-		if (!data) {
-			res.status(404).send({ message: 'Not found user with id ' + id });
-		} else {
-			res.send(data);
-		}
+		await UserSchema.findById(id)
+			.then((data) => {
+				if (!data) {
+					res.status(404).send({ message: 'Not found user with id ' + id });
+				} else {
+					res.send(data);
+				}
+			})
+			.catch((err) => {
+				res.status(500).send({ message: 'Erro retrieving user with id ' + id }, err);
+			});
 	} else {
-		const user = await UserSchema.find();
-		res.send(user);
+		await UserSchema.find()
+			.then((user) => {
+				res.send(user);
+			})
+			.catch((err) => {
+				res.status(500).send({ message: 'Error Occurred while retriving user information' }, err);
+			});
 	}
-});
+};
 
 exports.update = async (req, res) => {
 	const id = req.params.id;
@@ -48,51 +39,55 @@ exports.update = async (req, res) => {
 
 	const verif = schema.validate(body);
 	if (!verifID) {
-		res.status(400).send('id non conforme !');
+		res.status(400).send({ message: 'id non conforme !' });
 		return;
 	}
-
 	if (verif.error) {
 		res.status(400).send(verif.error.details[0].message);
 		return;
 	}
 
-	let upData = await UserSchema.findById(id);
+	await UserSchema.findByIdAndUpdate(id)
+		.then((upData) => {
+			if (!upData) {
+				res.status(404).send({ message: "aucun enregistrement trouvé pour l'id " + id });
+				return;
+			} else {
+				upData.email = body.email;
+				upData.password = body.password;
+				upData.title = body.title;
+				upData.firstName = body.firstName;
+				upData.lastName = body.lastName;
 
-	if (!upData) {
-		res.status(404).send("aucun enregistrement trouvé pour l'id " + id);
-		return;
-	}
-
-	upData.email = body.email;
-	upData.password = body.password;
-	upData.title = body.title;
-	upData.firstName = body.firstName;
-	upData.lastName = body.lastName;
-
-	await upData.save();
-	res.redirect('/get-users');
+				upData.save();
+				res.redirect('/get-users');
+			}
+		})
+		.catch((err) => {
+			res.status(500).send({ message: 'Erro retrieving user with id ' + id });
+		});
 };
 
 // delete a user with specified user id
 exports.delete = async (req, res) => {
 	const id = req.params.id;
-	try {
-		const verifID = mongoose.Types.ObjectId.isValid(id);
 
-		if (!verifID) {
-			res.status(400).send("l'id not match");
-			return;
-		}
+	const verifID = mongoose.Types.ObjectId.isValid(id);
 
-		const delUser = await UserSchema.findByIdAndDelete(id);
-
-		if (delUser) {
-			res.status(200).send('User deleted successfully !');
-		} else {
-			res.status(404).send(`Id ${id} not found`);
-		}
-	} catch (err) {
-		res.status(500).send('Error while operating');
+	if (!verifID) {
+		res.status(400).send("l'id transmis n'est pas conforme");
+		return;
 	}
+
+	await UserSchema.findByIdAndDelete(id)
+		.then((data) => {
+			if (!data) {
+				res.status(404).send({ message: `Cannot Delete with id ${id}. Maybe id is wrong` });
+			} else {
+				res.redirect('/get-users');
+			}
+		})
+		.catch((err) => {
+			res.status(500).send({ message: 'Could not delete User with id=' + id });
+		});
 };

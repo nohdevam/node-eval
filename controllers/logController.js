@@ -5,16 +5,16 @@ const salt = crypto.randomBytes(16).toString('hex');
 const { UserSchema, schema } = require('../models/userModel');
 
 // Handling user signup
-exports.register = (req, res) => {
-	const userData = {
-		//values should be those in the user model important
-		email: req.body.email,
-		password: req.body.password,
-		title: req.body.title,
-		firstName: req.body.firstName,
-		lastName: req.body.lastName
-	};
-	UserSchema.findOne({
+exports.register = async (req, res) => {
+	const userData = req.body;
+
+	const verif = schema.validate(userData);
+
+	if (verif.error) {
+		res.status(400).send(verif.error.details[0].message);
+		return;
+	}
+	await UserSchema.findOne({
 		//ensure email is unique, i.e the email is not already in the database
 		email: req.body.email
 	})
@@ -44,8 +44,8 @@ exports.register = (req, res) => {
 };
 
 /*Set route for logging in registered users*/
-exports.login = (req, res) => {
-	UserSchema.findOne({
+exports.login = async (req, res) => {
+	await UserSchema.findOne({
 		//check to see if a username like this is in the database
 		username: req.body.username,
 		password: crypto.pbkdf2Sync(req.body.password, salt, 1000, 64, `sha512`).toString(`hex`)

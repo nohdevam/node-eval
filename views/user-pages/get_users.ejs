@@ -13,7 +13,7 @@
             <h2 class="text-center">Users</h2>
             
             <!-- form handling -->
-            <form action="/" method="POST">
+              
                 <table class="table">
                     <thead class="thead-dark">
                         <tr>
@@ -34,12 +34,17 @@
                                 <td><%= user.lastName %></td>
                                 <td><%= user.email %></td>
                                 <td>
+                                    <form method="POST" action="/users/<%=user._id%>?_method=DELETE" >  
                                     <a href="/update-user?id=<%= user._id%>" class="btn border-shadow update">
                                         <span class="text-gradient"><i class="fas fa-pencil-alt"></i></span>
                                     </a>
-                                    <a class="btn border-shadow delete" data-id=<%= user._id%> >
+                                    
+                                    <button class="btn border-shadow delete" id="delete_user" type="submit" onclick="deletedUser()">
                                         <span class="text-gradient"><i class="fas fa-times"></i></span>
-                                    </a>
+                                    </button>
+                                    </form>
+        
+                                    
                                 </td>
                             </tr>
                             <% }); %>

@@ -23,40 +23,22 @@ $('#update_user').submit(function(event) {
 	});
 });
 
-if (window.location.pathname == '/') {
-	$ondelete = $('.table tbody td a.delete');
-	$ondelete.click(function() {
-		var id = $(this).attr('data-id');
-
-		var request = {
-			url: `http://localhost:3000/users/${id}`,
-			method: 'DELETE'
-		};
-
-		if (confirm('Do you really want to delete this record?')) {
-			$.ajax(request).done(function(response) {
-				alert('Data Deleted Successfully!');
-				location.reload();
-			});
+function deletedUser() {
+	$.ajax({
+		url: `http://localhost:3000/users/${id}`,
+		type: 'DELETE',
+		success: function(result) {
+			console.log('deleted successfully !');
 		}
 	});
 }
 
-if (window.location.pathname == '/') {
-	$ondelete = $('form a.delete-recipe');
-	$ondelete.click(function() {
-		var id = $(this).attr('data-recipe-id');
-
-		var request = {
-			url: `http://localhost:3000/recipes/${id}`,
-			method: 'DELETE'
-		};
-
-		if (confirm('Do you really want to delete this record?')) {
-			$.ajax(request).done(function(response) {
-				alert('Data Deleted Successfully!');
-				location.reload();
-			});
+function deletedRecipe() {
+	$.ajax({
+		url: `http://localhost:3000/recipes/${id}`,
+		type: 'DELETE',
+		success: function(result) {
+			console.log('deleted successfully !');
 		}
 	});
 }

@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
 
 :root {
-	--radius: .2em;
+	--radius: .4em;
 	--dark: #13694c;
 	--log-label: #242727;
 	--rec-label: #00b1ca;
@@ -336,12 +336,6 @@ table {
 	color: #117088;
 }
 
-.card-img {
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position-x: center;
-}
-
 .recipe-text {
 	font-size: 20px;
 	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -349,18 +343,28 @@ table {
 }
 
 /* add style for view_recipe */
-#grid {
-	display: grid;
-	grid-template-columns: max-content max-content 1fr;
+.box-size {
+	display: flex;
+	flex-direction: column;
 	box-sizing: border-box;
-	width: 100%;
-	height: 100%;
 	padding: 1em;
-	background-color: #d1faf6;
+	margin: 2em;
+	border: 4px dashed powderblue;
+	border-radius: var(--radius);
+	justify-content: center;
 }
 
-.box-size {
-	max-width: fit-content;
+.image-size {
+	width: 400px;
+	height: 300px;
+	border-radius: var(--radius);
+	margin-bottom: .5em;
+}
+
+.none {
+	width: 600px;
+	height: 800px;
+	justify-content: center;
 	margin: auto;
 	padding: 1em 2em;
 	border: 2px solid var(--back-rec);
@@ -369,4 +373,11 @@ table {
 
 .btn-box {
 	margin-top: 2em;
+}
+
+.rec-gradient {
+	background: linear-gradient(to right, #4a7ddb, #0499f0);
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
 }

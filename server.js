@@ -1,5 +1,4 @@
 const express = require('express');
-const ejs = require('ejs');
 const cors = require('cors');
 const path = require('path');
 require('dotenv').config();
@@ -26,12 +25,6 @@ app.use('/css', express.static(path.resolve(__dirname, 'assets/css')));
 app.use('/img', express.static(path.resolve(__dirname, 'assets/img')));
 app.use('/js', express.static(path.resolve(__dirname, 'assets/js')));
 //parse request
-
-/*app.use((req, res, next) => {
-	const { method, path } = req;
-	console.log(`Méthode: ${method} | Path: ${path}`);
-	next(); // next permet de passé à la suite, de ne pas tourner en boucle
-});*/
 
 //import routes
 app.use('/', homeRouter);
